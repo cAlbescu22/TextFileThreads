@@ -3,40 +3,37 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class FileSearch  {
-    int nrOfApparitions=0;
-    String wordSearch;
+    private int nrOfApparitions=0;
+    private String wordSearch;
 
-    public int parseFile (String fileName) throws FileNotFoundException {
+
+    public int parseFile(String fileName) throws FileNotFoundException {
 
         Scanner input=new Scanner(new File(fileName));
        while(input.hasNext()){
             String line=input.nextLine().toLowerCase();
-            countWordsOnLine(line);
+            String [] wordsOnLine=line.split("\\W");
+           for (String word:wordsOnLine) {
+               if (word.toLowerCase().matches(wordSearch)) {
+                   nrOfApparitions++;
+               }
+
+           }
+
+
             }
         return nrOfApparitions;
         }
 
-
-
-
     public FileSearch(String wordSearch) {
-        this.nrOfApparitions = nrOfApparitions;
         this.wordSearch=wordSearch;
 
     }
 
     @Override
-    public String toString() {
+    public  String toString() {
         return "nrOfApparitions=" + nrOfApparitions ;
     }
-    public boolean countWordsOnLine(String line) {
-       if (line.contains(wordSearch)) {
-           nrOfApparitions++;
-          return  countWordsOnLine(line.substring(line.indexOf(wordSearch)+wordSearch.length()));
-       } else
-       {
-           return false;
-       }
-    }
+
 }
 
